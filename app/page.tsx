@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -24,6 +25,16 @@ export default function Home() {
             Save and see your changes instantly.
           </li>
         </ol>
+
+        {/* Dashboard Button */}
+        <div className="flex gap-4 items-center flex-col sm:flex-row">
+          <Link
+            href="/dashboard"
+            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-blue-600 hover:bg-blue-700 text-white gap-2 font-medium text-sm sm:text-base h-12 px-6 sm:px-8 shadow-lg hover:shadow-xl transform hover:scale-105"
+          >
+            🔑 Go to API Keys Dashboard
+          </Link>
+        </div>
 
         <div className="flex gap-4 items-center flex-col sm:flex-row">
           <a
