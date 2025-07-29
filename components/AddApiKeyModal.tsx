@@ -58,7 +58,7 @@ export function AddApiKeyModal({ isOpen, onClose, onCreateKey }: AddApiKeyModalP
                             className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 placeholder-gray-500"
                         />
                         <p className="text-xs text-gray-500 mt-2">
-                            * If the combined usage of all your keys exceeds your plan's limit, all requests will be rejected.
+                            * If the combined usage of all your keys exceeds your plan&apos;s limit, all requests will be rejected.
                         </p>
                     </div>
                 </div>
