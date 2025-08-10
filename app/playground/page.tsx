@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { apiKeyService } from '../../lib/supabase';
 import { useToast } from '../../hooks/useToast';
 import { Toast } from '../../components/Toast';
 import { Sidebar } from '../../components/Sidebar';
@@ -22,15 +21,22 @@ export default function APIPlayground() {
         setIsLoading(true);
 
         try {
-            // Get all API keys and check if the entered key exists and is active
-            const allKeys = await apiKeyService.getAllKeys();
-            const foundKey = allKeys.find(key => key.key === apiKey.trim() && key.is_active);
+            // ✅ 서버 API를 통한 안전한 검증
+            const response = await fetch('/api/validate-key', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ apiKey: apiKey.trim() }),
+            });
 
-            if (foundKey) {
+            const result = await response.json();
+
+            if (response.ok && result.valid) {
                 showSuccess('API key is valid! Access granted.', '🎉');
                 setIsValidated(true);
             } else {
-                showError('Invalid API key. Please check your key and try again.', '❌');
+                showError(result.error || 'Invalid API key. Please check your key and try again.', '❌');
             }
         } catch (error) {
             console.error('Error validating API key:', error);
