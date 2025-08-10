@@ -3,7 +3,15 @@ interface SecurityEvent {
     ip: string;
     userAgent?: string;
     timestamp: Date;
-    details?: any;
+    details?: {
+        success?: boolean;
+        keyId?: string;
+        keyPrefix?: string;
+        reason?: string;
+        resetTime?: number;
+        eventCount?: number;
+        timeWindow?: string;
+    };
 }
 
 export class SecurityLogger {
