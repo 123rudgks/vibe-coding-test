@@ -11,6 +11,11 @@ interface SecurityEvent {
         resetTime?: number;
         eventCount?: number;
         timeWindow?: string;
+        url?: string;           // GitHub URL 등
+        service?: string;       // 서비스 이름
+        githubUrl?: string;     // GitHub 저장소 URL
+        usage?: number;         // API 사용량
+        error?: string;         // 에러 타입
     };
 }
 

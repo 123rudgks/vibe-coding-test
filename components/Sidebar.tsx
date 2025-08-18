@@ -1,10 +1,15 @@
+'use client'
+
 import Link from 'next/link';
+import { signOut, useSession } from 'next-auth/react'
+import Image from 'next/image'
 
 interface SidebarProps {
     currentPage?: 'dashboard' | 'playground' | 'assistant' | 'reports' | 'invoices' | 'docs';
 }
 
 export function Sidebar({ currentPage = 'dashboard' }: SidebarProps) {
+    const { data: session } = useSession()
     const navItems = [
         {
             id: 'dashboard',
@@ -102,14 +107,33 @@ export function Sidebar({ currentPage = 'dashboard' }: SidebarProps) {
 
             <div className="p-4 border-t border-gray-200">
                 <div className="flex items-center">
-                    <div className="w-8 h-8 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center text-white text-sm font-medium">
-                        E
+                    {session?.user?.image ? (
+                        <Image
+                            src={session.user.image}
+                            alt="Profile"
+                            width={32}
+                            height={32}
+                            className="rounded-full"
+                        />
+                    ) : (
+                        <div className="w-8 h-8 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center text-white text-sm font-medium">
+                            {session?.user?.name?.charAt(0).toUpperCase() || 'U'}
+                        </div>
+                    )}
+                    <div className="ml-3 flex-1 min-w-0">
+                        <p className="text-sm font-medium text-gray-900 truncate">
+                            {session?.user?.name || 'User'}
+                        </p>
+                        <p className="text-xs text-gray-500 truncate">
+                            {session?.user?.email}
+                        </p>
                     </div>
-                    <div className="ml-3">
-                        <p className="text-sm font-medium text-gray-900">EdenMarco</p>
-                    </div>
-                    <button className="ml-auto text-gray-400 hover:text-gray-600">
-                        ⚙️
+                    <button
+                        onClick={() => signOut({ callbackUrl: '/' })}
+                        className="ml-auto text-gray-400 hover:text-red-600 transition-colors"
+                        title="Sign out"
+                    >
+                        🚪
                     </button>
                 </div>
             </div>

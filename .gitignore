@@ -30,6 +30,9 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
+# google OAuth 클라이언트 json
+client_secret_899702647388-u3mtsuh2hc10g8134i4osqepf93n3nof.apps.googleusercontent.com.json
+
 # env files (can opt-in for committing if needed)
 .env*
 

@@ -3,6 +3,14 @@ import { createClient } from '@supabase/supabase-js'
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 
+// 환경변수 체크
+if (!supabaseUrl || !supabaseAnonKey) {
+    console.error('❌ Supabase 환경변수가 설정되지 않았습니다!');
+    console.error('NEXT_PUBLIC_SUPABASE_URL:', supabaseUrl);
+    console.error('NEXT_PUBLIC_SUPABASE_ANON_KEY:', supabaseAnonKey ? '[설정됨]' : '[미설정]');
+    throw new Error('Supabase 환경변수를 .env.local 파일에 설정해주세요.');
+}
+
 export const supabase = createClient(supabaseUrl, supabaseAnonKey)
 
 // Database types for better TypeScript support
